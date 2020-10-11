@@ -5,7 +5,7 @@ layout: default
 <div class="home container pt-2">
   {{ content }}
 
-  {% if site.paginate %}
+  {% if site.pagination.enabled %}
     {% assign posts = paginator.posts %}
   {% else %}
     {% assign posts = site.posts %}
@@ -17,7 +17,7 @@ layout: default
     {%- endif -%}
 
     {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-    {%- for post in paginator.posts -%}
+    {%- for post in posts -%}
       <div class="card mb-2">
         <div class="card-body">
             <h5 class="mt-0"><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h5>
