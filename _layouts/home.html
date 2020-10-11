@@ -1,0 +1,54 @@
+---
+layout: default
+---
+
+<div class="home container pt-2">
+  {{ content }}
+
+  {% if site.paginate %}
+    {% assign posts = paginator.posts %}
+  {% else %}
+    {% assign posts = site.posts %}
+  {% endif %}
+
+  {%- if posts.size > 0 -%}
+    {%- if page.list_title -%}
+      <h2 class="post-list-heading">{{ page.list_title }}</h2>
+    {%- endif -%}
+
+    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+    {%- for post in paginator.posts -%}
+      <div class="card mb-2">
+        <div class="card-body">
+            <h5 class="mt-0"><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h5>
+            {%- if site.show_excerpts -%} <div class="text-muted">{{ post.excerpt }}</div> {%- endif -%}
+            <small class="text-muted">{{ post.date | date: date_format }}</small>
+        </div>
+      </div>
+    {%- endfor -%}
+  {%- endif -%}
+
+
+  <div class="float-right">
+    {% if paginator.total_pages > 1 %}
+    <ul class="pagination">
+      <li class="page-item {% if paginator.previous_page_path %} {%else%} disabled {% endif %}">
+        <a class="page-link" href="{{ paginator.previous_page_path | prepend: site.baseurl }}">Newer</a>
+      </li>
+
+      {% if paginator.page_trail %}
+      {% for trail in paginator.page_trail %}
+      <li class="page-item {% if page.url == trail.path %}disabled{% endif %}">
+        <a class="page-link" href="{{ trail.path | prepend: site.baseurl }}" title="{{trail.title}}">{{ trail.num }}</a>
+      </li>
+      {% endfor %}
+      {% endif %}
+
+      <li class="page-item {% if paginator.next_page_path %} {%else%} disabled {% endif %}">
+        <a class="page-link" href="{{ paginator.next_page_path | prepend: site.baseurl }}">Older</a>
+      </li>
+
+    </ul>
+    {% endif %}
+  </div>
+</div>

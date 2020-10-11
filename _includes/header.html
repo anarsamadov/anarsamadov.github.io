@@ -1,0 +1,36 @@
+<header class="site-header bg-dark">
+  <div class="container">
+    {%- assign default_paths = site.pages | map: "path" -%}
+    {%- assign page_paths = site.header_pages | default: default_paths -%}
+    {%- assign titles_size = site.pages | map: 'title' | join: '' | size -%}
+    <nav class="navbar navbar-expand-lg navbar-light navbar-dark">
+        <a class="navbar-brand site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <span class="navbar-text mr-auto">{{site.subtitle}}</span>
+          <ul class="navbar-nav ">
+            <li class="nav-item {% if page.url=='/index.html'%} active{% endif %}">
+              <a class="nav-link" href="{{ "/" | relative_url }}">Home<span class="sr-only">(current)</span></a>
+            </li>
+            {%- for path in page_paths -%}
+            {%- assign my_page = site.pages | where: "path", path | first -%}
+            {%- if my_page.layout=='page' -%}
+            <li class="nav-item  {% if page.url==my_page.url%} active{% endif %}">
+              <a class="nav-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
+            </li>
+            {%- endif -%}
+            {%- endfor -%}
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-github"></i></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-linkedin"></i></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-facebook"></i></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-twitter"></i></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fab fa-youtube"></i></a></li>
+          </ul>
+
+        </div>
+      </nav>
+  </div>
+</header>
+
