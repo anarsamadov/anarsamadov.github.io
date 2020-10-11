@@ -1,54 +1,67 @@
 ---
 layout: default
 ---
+{% if site.paginate %}
+{% assign posts = paginator.posts %}
+{% else %}
+{% assign posts = site.posts %}
+{% endif %}
 
-<div class="home container pt-2">
-  {{ content }}
+{% if paginator.page==1 %}
+<div class="container mt-2">
+  <div class="jumbotron bg-white">
+    <div class="container">
+      <h3 class="display-5">echo "Hello world!"; </h3>
+      <p class="lead">Hello, my name is <code>Anar</code>. I am from <strong><a href="https://en.wikipedia.org/wiki/Azerbaijan" target="_blank">Azerbaijan</a></strong>. I'm trying to share something about web programming. You can help me by sharing my articles on social media. Thank you :)</p>
+      <ul class="nav">
+        {%if site.minima.social_links.github %}<li class="nav-item"><a target="_blank" class="nav-link" href="https://github.com/{{site.minima.social_links.github}}"><i class="fab fa-github"></i></a></li>{% endif %}
+        {%if site.minima.social_links.linkedin %}<li class="nav-item"><a target="_blank" class="nav-link" href="https://linkedin.com/in/{{site.minima.social_links.linkedin}}"><i class="fab fa-linkedin"></i></a></li>{% endif %}
+        {%if site.minima.social_links.facebook %}<li class="nav-item"><a target="_blank" class="nav-link" href="https://facebook.com/{{site.minima.social_links.facebook}}"><i class="fab fa-facebook"></i></a></li>{% endif %}
+        {%if site.minima.social_links.twitter %}<li class="nav-item"><a target="_blank" class="nav-link" href="https://twitter.com/{{site.minima.social_links.twitter}}"><i class="fab fa-twitter"></i></a></li>{% endif %}
+        {%if site.minima.social_links.youtube %}<li class="nav-item"><a target="_blank" class="nav-link" href="https://youtub.com/{{site.minima.social_links.youtube}}"><i class="fab fa-youtube"></i></a></li>{% endif %}
+        <li class="nav-item"><a target="_blank" class="nav-link" href="https://anarsamadov.net" data-toggle="tooltip" data-placement="bottom" title="Blog"><i class="fas fa-external-link-alt"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endif %}
 
-  {% if site.pagination.enabled %}
-    {% assign posts = paginator.posts %}
-  {% else %}
-    {% assign posts = site.posts %}
-  {% endif %}
-
+<div class="container mt-2 mb-3">
   {%- if posts.size > 0 -%}
-    {%- if page.list_title -%}
-      <h2 class="post-list-heading">{{ page.list_title }}</h2>
-    {%- endif -%}
+
+    <h2 class="post-list-heading" style="font-size: 1rem">List of posts</h2>
 
     {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
     {%- for post in posts -%}
-      <div class="card mb-2">
-        <div class="card-body">
-            <h5 class="mt-0"><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h5>
-            {%- if site.show_excerpts -%} <div class="text-muted">{{ post.excerpt }}</div> {%- endif -%}
-            <small class="text-muted">{{ post.date | date: date_format }}</small>
-        </div>
+    <div class="card mb-2">
+      <div class="card-body">
+        <h5 class="mt-0"><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h5>
+        {%- if site.show_excerpts -%} <div class="text-muted">{{ post.excerpt }}</div> {%- endif -%}
+        <small class="text-muted">{{ post.date | date: date_format }}</small>
       </div>
+    </div>
     {%- endfor -%}
   {%- endif -%}
+</div>
 
-
+{% if paginator.total_pages > 1 %}
+<div class="container mt-3">
   <div class="float-right">
-    {% if paginator.total_pages > 1 %}
-    <ul class="pagination">
-      <li class="page-item {% if paginator.previous_page_path %} {%else%} disabled {% endif %}">
-        <a class="page-link" href="{{ paginator.previous_page_path | prepend: site.baseurl }}">Newer</a>
-      </li>
-
-      {% if paginator.page_trail %}
-      {% for trail in paginator.page_trail %}
-      <li class="page-item {% if page.url == trail.path %}disabled{% endif %}">
-        <a class="page-link" href="{{ trail.path | prepend: site.baseurl }}" title="{{trail.title}}">{{ trail.num }}</a>
-      </li>
-      {% endfor %}
+    <ul class="pagination pagination-sm">
+      <li class="page-item {% if paginator.previous_page==blank? %} disabled {% endif %}"><a class="page-link" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo;</a></li>
+      {% for page in (1..paginator.total_pages) %}
+      {% if page == paginator.page %}
+      <li class="page-item active"><span class="page-link">{{ page }}</span></li>
+      {% elsif page == 1 %}
+      <li class="page-item"><a class="page-link" href="{{site.baseurl}}/">{{ page }}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a></li>
       {% endif %}
-
-      <li class="page-item {% if paginator.next_page_path %} {%else%} disabled {% endif %}">
-        <a class="page-link" href="{{ paginator.next_page_path | prepend: site.baseurl }}">Older</a>
-      </li>
-
+      {% endfor %}
+      <li class="page-item {% if paginator.next_page==blank? %} disabled {%endif%}"><a class="page-link" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">&raquo;</a></li>
     </ul>
-    {% endif %}
   </div>
 </div>
+{% endif %}
+
+<div class="clearfix"></div>

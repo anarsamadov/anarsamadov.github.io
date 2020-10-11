@@ -1,4 +1,4 @@
-<footer class="site-footer h-card fixed-bottom">
+<footer class="site-footer h-card clearfix">
   <data class="u-url" href="{{ "/" | relative_url }}"></data>
 
   <div class="container">
@@ -11,10 +11,12 @@
 
 </footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/particles.min.js"></script>
 <script>
   particlesJS.load('particles-js', '/js/particlesjs-config.json', function() {
     console.log('callback - particles.js config loaded');
   });
+  $('[data-toggle="tooltip"]').tooltip();
 </script>

@@ -2521,7 +2521,7 @@ html { font-size: 16px; }
 /** Reset some basic elements */
 body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; padding: 0; }
 
-body { margin-bottom: 80px; }
+body { margin-top: 80px; }
 
 /** Set `margin-bottom` to maintain vertical rhythm */
 h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px; }
@@ -2542,8 +2542,6 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 .highlighter-rouge .highlight { background: #eeeeff; }
 
 /** Site header */
-.site-header { border-top: 3px solid #ffbe00; border-bottom: 1px solid #e8e8e8; min-height: 30px; line-height: 24px; position: relative; }
-
 .post { background-color: #FFF; padding: 30px; border-radius: 5px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 0 -2px rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.2); }
 
 .page { background-color: #FFF; padding: 30px; border-radius: 5px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 0 -2px rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.2); }

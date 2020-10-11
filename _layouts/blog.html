@@ -1,0 +1,46 @@
+{% if site.paginate %}
+{% assign posts = paginator.posts %}
+{% else %}
+{% assign posts = site.posts %}
+{% endif %}
+
+{{paginator.posts}}
+
+<div class="container mt-3">
+  {%- if posts.size > 0 -%}
+  {%- if page.list_title -%}
+  <h2 class="post-list-heading">{{ page.list_title }}</h2>
+  {%- endif -%}
+
+  {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+  {%- for post in posts -%}
+  <div class="card mb-2">
+    <div class="card-body">
+      <h5 class="mt-0"><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h5>
+      {%- if site.show_excerpts -%} <div class="text-muted">{{ post.excerpt }}</div> {%- endif -%}
+      <small class="text-muted">{{ post.date | date: date_format }}</small>
+    </div>
+  </div>
+  {%- endfor -%}
+  {%- endif -%}
+</div>
+
+{% if paginator.total_pages > 1 %}
+<div class="container mt-3">
+  <div class="float-right">
+    <ul class="pagination pagination-sm">
+      <li class="page-item {% if paginator.previous_page==blank? %} disabled {% endif %}"><a class="page-link" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo;</a></li>
+      {% for page in (1..paginator.total_pages) %}
+      {% if page == paginator.page %}
+      <li class="page-item active"><span class="page-link">{{ page }}</span></li>
+      {% elsif page == 1 %}
+      <li class="page-item"><a class="page-link" href="{{site.baseurl}}/">{{ page }}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a></li>
+      {% endif %}
+      {% endfor %}
+      <li class="page-item {% if paginator.next_page==blank? %} disabled {%endif%}"><a class="page-link" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">&raquo;</a></li>
+    </ul>
+  </div>
+</div>
+{% endif %}

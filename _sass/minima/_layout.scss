@@ -1,15 +1,6 @@
 /**
  * Site header
  */
-.site-header {
-  border-top: 3px solid $border-color-02;
-  border-bottom: 1px solid $border-color-01;
-  min-height: $spacing-unit;
-  line-height: $base-line-height * $base-font-size;
-  // Positioning context for the mobile navigation icon
-  position: relative;
-}
-
 .post {
   background-color: $post-background-color;
   padding: 30px;
